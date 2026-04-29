@@ -1128,6 +1128,19 @@ export function resolveSessionModelRef(
   return resolved;
 }
 
+function findGatewayImageCapabilityModelEntry(
+  catalog: ModelCatalogEntry[],
+  params: { provider?: string; model: string },
+): ModelCatalogEntry | undefined {
+  const provider = normalizeOptionalString(params.provider);
+  if (provider) {
+    // Explicit provider lookups must fail closed; only providerless callers can
+    // use the catalog helper's unique model-only match.
+    return findModelCatalogEntry(catalog, { provider, modelId: params.model });
+  }
+  return findModelCatalogEntry(catalog, { modelId: params.model });
+}
+
 export async function resolveGatewayModelSupportsImages(params: {
   loadGatewayModelCatalog: () => Promise<ModelCatalogEntry[]>;
   provider?: string;
@@ -1139,9 +1152,9 @@ export async function resolveGatewayModelSupportsImages(params: {
 
   try {
     const catalog = await params.loadGatewayModelCatalog();
-    const modelEntry = findModelCatalogEntry(catalog, {
+    const modelEntry = findGatewayImageCapabilityModelEntry(catalog, {
       provider: params.provider,
-      modelId: params.model,
+      model: params.model,
     });
     const normalizedProvider = normalizeOptionalLowercaseString(
       params.provider ?? modelEntry?.provider,

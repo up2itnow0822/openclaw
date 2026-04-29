@@ -1493,7 +1493,30 @@ describe("resolveGatewayModelSupportsImages", () => {
     ).resolves.toBe(true);
   });
 
-  test("does not borrow image support from another provider when provider is explicit", async () => {
+  test("honors configured provider image input metadata for mixed-case model ids", async () => {
+    await expect(
+      resolveGatewayModelSupportsImages({
+        model: "qwen/qwen3.5-35b-a3b",
+        provider: "modelscope",
+        loadGatewayModelCatalog: async () => [
+          {
+            id: "Qwen/Qwen3.5-35B-A3B",
+            name: "Configured Qwen3.5 35B",
+            provider: "modelscope",
+            input: ["text", "image"],
+          },
+          {
+            id: "qwen/qwen3.5-35b-a3b",
+            name: "Other Qwen3.5 35B",
+            provider: "other",
+            input: ["text"],
+          },
+        ],
+      }),
+    ).resolves.toBe(true);
+  });
+
+  test("does not borrow configured image input metadata from another provider when provider is explicit", async () => {
     await expect(
       resolveGatewayModelSupportsImages({
         model: "gpt-4",
