@@ -51,7 +51,7 @@ describe("install.sh", () => {
     const tmp = mkdtempSync(join(tmpdir(), "openclaw-install-nvm-"));
     const home = join(tmp, "home");
     const systemBin = join(tmp, "system-bin");
-    const nvmBin = join(home, ".nvm/versions/node/v22.22.1/bin");
+    const nvmBin = join(home, ".nvm/versions/node/v24.11.1/bin");
     mkdirSync(systemBin, { recursive: true });
     mkdirSync(nvmBin, { recursive: true });
     mkdirSync(join(home, ".nvm"), { recursive: true });
@@ -59,7 +59,7 @@ describe("install.sh", () => {
     const systemNode = join(systemBin, "node");
     const nvmNode = join(nvmBin, "node");
     writeFileSync(systemNode, "#!/bin/sh\necho v8.11.3\n");
-    writeFileSync(nvmNode, "#!/bin/sh\necho v22.22.1\n");
+    writeFileSync(nvmNode, "#!/bin/sh\necho v24.11.1\n");
     chmodSync(systemNode, 0o755);
     chmodSync(nvmNode, 0o755);
     writeFileSync(
@@ -69,7 +69,7 @@ describe("install.sh", () => {
         "export NVM_DIR",
         "nvm() {",
         '  if [ "$1" = "use" ]; then',
-        '    export PATH="$NVM_DIR/versions/node/v22.22.1/bin:$PATH"',
+        '    export PATH="$NVM_DIR/versions/node/v24.11.1/bin:$PATH"',
         "    return 0",
         "  fi",
         "  return 0",
@@ -106,7 +106,7 @@ describe("install.sh", () => {
     const output = result?.stdout ?? "";
     expect(output).toContain("status=0");
     expect(output).toContain(`path=${nvmNode}`);
-    expect(output).toContain("version=v22.22.1");
+    expect(output).toContain("version=v24.11.1");
   });
 });
 

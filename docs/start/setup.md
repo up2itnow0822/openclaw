@@ -21,7 +21,7 @@ Pick a setup workflow based on how often you want updates and whether you want t
 
 ## Prereqs (from source)
 
-- Node 24 recommended (Node 22 LTS, currently `22.14+`, still supported)
+- Node 24 or later
 - `pnpm` preferred (or Bun if you intentionally use the [Bun workflow](/install/bun))
 - Docker (optional; only for containerized setup/e2e — see [Docker](/install/docker))
 

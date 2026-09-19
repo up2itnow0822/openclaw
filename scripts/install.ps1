@@ -145,7 +145,7 @@ function Install-Node {
     }
     
     Write-Host "Could not install Node.js automatically" -Level error
-    Write-Host "Please install Node.js 22+ manually from: https://nodejs.org" -Level info
+    Write-Host "Please install Node.js 24+ manually from: https://nodejs.org" -Level info
     return $false
 }
 
@@ -153,11 +153,11 @@ function Ensure-Node {
     $nodeVersion = Get-NodeVersion
     if ($nodeVersion) {
         $major = [int]($nodeVersion -split '\.')[0]
-        if ($major -ge 22) {
+        if ($major -ge 24) {
             Write-Host "Node.js v$nodeVersion found" -Level success
             return $true
         }
-        Write-Host "Node.js v$nodeVersion found, but need v22+" -Level warn
+        Write-Host "Node.js v$nodeVersion found, but need v24+" -Level warn
     }
     return Install-Node
 }

@@ -42,7 +42,7 @@ Telegraph style. Root rules only. Read scoped `AGENTS.md` before subtree work.
 
 ## Commands
 
-- Runtime: Node 22+. Keep Node + Bun paths working.
+- Runtime: Node 24+. Keep Node + Bun paths working.
 - Install: `pnpm install` (keep Bun lock/patches aligned if touched).
 - CLI: `pnpm openclaw ...` or `pnpm dev`; build: `pnpm build`.
 - Smart gate: `pnpm check:changed`; explain `pnpm changed:lanes --json`; staged preview `pnpm check:changed --staged`.
