@@ -1357,7 +1357,7 @@ ensure_macos_default_node_active() {
 
     local major=""
     major="$(node_major_version || true)"
-    if [[ -n "$major" && "$major" -ge 22 ]]; then
+    if [[ -n "$major" && "$major" -ge "$NODE_MIN_MAJOR" ]]; then
         return 0
     fi
 

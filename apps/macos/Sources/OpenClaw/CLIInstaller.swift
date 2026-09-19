@@ -71,7 +71,7 @@ enum CLIInstaller {
         let escapedPrefix = self.shellEscape(prefix)
         let script = """
         curl -fsSL https://openclaw.bot/install-cli.sh | \
-        bash -s -- --json --no-onboard --prefix \(escapedPrefix) --version \(escapedVersion)
+        bash -s -- --json --no-onboard --prefix \(escapedPrefix) --version \(escapedVersion) --node-version 24
         """
         return ["/bin/bash", "-lc", script]
     }

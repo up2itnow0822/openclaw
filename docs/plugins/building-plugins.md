@@ -20,7 +20,7 @@ falls back to npm automatically for packages that still use npm distribution.
 
 ## Prerequisites
 
-- Node >= 22 and a package manager (npm or pnpm)
+- Node >= 24 and a package manager (npm or pnpm)
 - Familiarity with TypeScript (ESM)
 - For in-repo plugins: repository cloned and `pnpm install` done
 

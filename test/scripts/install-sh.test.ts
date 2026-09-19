@@ -20,6 +20,12 @@ function runInstallShell(script: string, env: NodeJS.ProcessEnv = {}) {
 describe("install.sh", () => {
   const script = readFileSync(SCRIPT_PATH, "utf8");
 
+  it("uses the Node 24 floor when checking the active Homebrew runtime", () => {
+    expect(script).toContain('if [[ -n "$major" && "$major" -ge "$NODE_MIN_MAJOR" ]]; then');
+    expect(script).toContain("NODE_MIN_MAJOR=24");
+    expect(script).not.toContain('if [[ -n "$major" && "$major" -ge 22 ]]; then');
+  });
+
   it("runs apt-get through noninteractive wrappers", () => {
     expect(script).toContain("apt_get()");
     expect(script).toContain('DEBIAN_FRONTEND="${DEBIAN_FRONTEND:-noninteractive}"');
