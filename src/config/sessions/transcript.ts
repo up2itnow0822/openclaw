@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { SessionManager } from "@mariozechner/pi-coding-agent";
+import type { SessionManager } from "@earendil-works/pi-coding-agent";
 import { formatErrorMessage } from "../../infra/errors.js";
 import { emitSessionTranscriptUpdate } from "../../sessions/transcript-events.js";
 import { extractAssistantVisibleText } from "../../shared/chat-message-content.js";
@@ -16,11 +16,13 @@ import { parseSessionThreadInfo } from "./thread-info.js";
 import { resolveMirroredTranscriptText } from "./transcript-mirror.js";
 import type { SessionEntry } from "./types.js";
 
-let piCodingAgentModulePromise: Promise<typeof import("@mariozechner/pi-coding-agent")> | null =
+let piCodingAgentModulePromise: Promise<typeof import("@earendil-works/pi-coding-agent")> | null =
   null;
 
-async function loadPiCodingAgentModule(): Promise<typeof import("@mariozechner/pi-coding-agent")> {
-  piCodingAgentModulePromise ??= import("@mariozechner/pi-coding-agent");
+async function loadPiCodingAgentModule(): Promise<
+  typeof import("@earendil-works/pi-coding-agent")
+> {
+  piCodingAgentModulePromise ??= import("@earendil-works/pi-coding-agent");
   return await piCodingAgentModulePromise;
 }
 

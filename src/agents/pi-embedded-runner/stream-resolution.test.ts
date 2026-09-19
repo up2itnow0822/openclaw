@@ -1,5 +1,5 @@
-import type { StreamFn } from "@mariozechner/pi-agent-core";
-import { streamSimple } from "@mariozechner/pi-ai";
+import type { StreamFn } from "@earendil-works/pi-agent-core";
+import { streamSimple } from "@earendil-works/pi-ai";
 import { describe, expect, it, vi } from "vitest";
 import * as providerTransportStream from "../provider-transport-stream.js";
 import {

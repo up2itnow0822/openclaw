@@ -1598,11 +1598,11 @@
   "dependencies": {
     "@agentclientprotocol/sdk": "0.20.0",
     "@clack/prompts": "^1.2.0",
+    "@earendil-works/pi-agent-core": "0.79.10",
+    "@earendil-works/pi-ai": "0.79.10",
+    "@earendil-works/pi-coding-agent": "0.79.10",
+    "@earendil-works/pi-tui": "0.79.10",
     "@lydell/node-pty": "1.2.0-beta.12",
-    "@mariozechner/pi-agent-core": "0.70.5",
-    "@mariozechner/pi-ai": "0.70.5",
-    "@mariozechner/pi-coding-agent": "0.70.5",
-    "@mariozechner/pi-tui": "0.70.5",
     "@modelcontextprotocol/sdk": "1.29.0",
     "@vincentkoc/qrcode-tui": "0.2.1",
     "ajv": "^8.20.0",
@@ -1728,7 +1728,7 @@
       "koffi"
     ],
     "packageExtensions": {
-      "@mariozechner/pi-coding-agent": {
+      "@earendil-works/pi-coding-agent": {
         "dependencies": {
           "strip-ansi": "^7.2.0"
         }

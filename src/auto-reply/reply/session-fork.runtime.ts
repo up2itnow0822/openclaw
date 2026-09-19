@@ -1,8 +1,8 @@
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import type { AgentMessage } from "@mariozechner/pi-agent-core";
-import { CURRENT_SESSION_VERSION, SessionManager } from "@mariozechner/pi-coding-agent";
+import type { AgentMessage } from "@earendil-works/pi-agent-core";
+import { CURRENT_SESSION_VERSION, SessionManager } from "@earendil-works/pi-coding-agent";
 import { estimateMessagesTokens } from "../../agents/compaction.js";
 import { resolveSessionFilePath } from "../../config/sessions/paths.js";
 import { resolveFreshSessionTotalTokens, type SessionEntry } from "../../config/sessions/types.js";
