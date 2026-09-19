@@ -120,7 +120,9 @@ type CacheRetentionStreamOptions = Partial<SimpleStreamOptions> & {
   cachedContent?: string;
   openaiWsWarmup?: boolean;
 };
-export type SupportedTransport = Exclude<CacheRetentionStreamOptions["transport"], undefined>;
+// OpenClaw keeps the 0.70-era closed transport set. Pi 0.79 also emits
+// "websocket-cached"; drop it until a product path maps that mode.
+export type SupportedTransport = "sse" | "websocket" | "auto";
 
 function resolveSupportedTransport(value: unknown): SupportedTransport | undefined {
   return value === "sse" || value === "websocket" || value === "auto" ? value : undefined;
