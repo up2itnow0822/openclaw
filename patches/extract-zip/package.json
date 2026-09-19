@@ -1,0 +1,18 @@
+{
+  "name": "extract-zip",
+  "version": "2.0.2",
+  "description": "Vendored extract-zip 2.0.1 with symlink path-traversal guards (GHSA-jmr9-qjv8-65gv, GHSA-7pqw-9j4j-h8q3)",
+  "license": "BSD-2-Clause",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "debug": "^4.1.1",
+    "get-stream": "^5.1.0",
+    "yauzl": "^2.10.0"
+  },
+  "engines": {
+    "node": ">= 10.17.0"
+  }
+}

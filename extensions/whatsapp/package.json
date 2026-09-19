@@ -4,11 +4,11 @@
   "description": "OpenClaw WhatsApp channel plugin",
   "type": "module",
   "dependencies": {
-    "@whiskeysockets/baileys": "7.0.0-rc.9",
+    "@whiskeysockets/baileys": "7.0.0-rc14",
     "https-proxy-agent": "^9.0.0",
     "jimp": "^1.6.1",
     "typebox": "1.1.33",
-    "undici": "8.1.0"
+    "undici": "8.10.2"
   },
   "devDependencies": {
     "@openclaw/plugin-sdk": "workspace:*",

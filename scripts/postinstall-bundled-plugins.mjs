@@ -708,7 +708,13 @@ export function applyBaileysEncryptedStreamFinishHotfix(params = {}) {
     }
 
     if (!dispatcherResolved) {
-      return { applied: false, reason: "unexpected_content", targetPath };
+      // Newer Baileys builds already dropped the generic `dispatcher: fetchAgent`
+      // upload path, so there is nothing left to rewrite.
+      if (encryptedStreamResolved && !patchedText.includes(BAILEYS_MEDIA_DISPATCHER_NEEDLE)) {
+        dispatcherResolved = true;
+      } else {
+        return { applied: false, reason: "unexpected_content", targetPath };
+      }
     }
 
     if (!applied) {

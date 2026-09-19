@@ -15,6 +15,7 @@ Docs: https://docs.openclaw.ai
 
 ### Fixes
 
+- Security/dependencies: bump production HIGH/CRITICAL lockfile pins (axios, tar, baileys, hono, otel, pdfjs-dist, sharp, undici, ws, and related overrides) and ship a symlink-safe extract-zip under `patches/extract-zip` so `pnpm-audit-prod --audit-level=high` can pass patched releases. Thanks @up2itnow0822.
 - Browser control: keep Node 24's native read-only `IncomingMessage.signal` instead of overwriting it, so control/bridge HTTP routes return real auth and validation statuses instead of Express 500 HTML. Thanks @up2itnow0822.
 - Channels/Discord: remove Discord-owned queued-run timeout replies through the shared channel lifecycle queue while preserving message ordering and compatibility timeout constants, so long Discord turns stay governed by session/tool/runtime lifecycle instead of channel fallback errors. Thanks @codexGW.
 - Agents/tools: clamp `process.poll` waits to 30 seconds and honor abort signals while waiting, so long command polls cannot pin agent responsiveness after cancellation. Thanks @vincentkoc.
