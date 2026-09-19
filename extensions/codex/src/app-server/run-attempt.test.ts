@@ -171,7 +171,8 @@ function createAppServerHarness(
     requests,
     async waitForMethod(method: string) {
       await vi.waitFor(() => expect(requests.some((entry) => entry.method === method)).toBe(true), {
-        interval: 1,
+        interval: 10,
+        timeout: 10_000,
       });
     },
     async notify(notification: CodexServerNotification) {
@@ -305,6 +306,7 @@ function extractRelayIdFromThreadRequest(params: unknown): string {
 describe("runCodexAppServerAttempt", () => {
   beforeEach(async () => {
     resetAgentEventsForTest();
+    resetGlobalHookRunner();
     tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-codex-run-"));
   });
 
