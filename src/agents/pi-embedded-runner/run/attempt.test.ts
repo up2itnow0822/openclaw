@@ -98,7 +98,7 @@ describe("normalizeMessagesForLlmBoundary", () => {
 
     const output = normalizeMessagesForLlmBoundary(
       input as Parameters<typeof normalizeMessagesForLlmBoundary>[0],
-    ) as Array<Record<string, unknown>>;
+    ) as unknown as Array<Record<string, unknown>>;
 
     expect(output[0]).not.toHaveProperty("details");
     expect(output[0]?.content).toEqual([{ type: "text", text: "visible output" }]);
@@ -130,7 +130,7 @@ describe("normalizeMessagesForLlmBoundary", () => {
 
     const output = normalizeMessagesForLlmBoundary(
       input as Parameters<typeof normalizeMessagesForLlmBoundary>[0],
-    ) as Array<Record<string, unknown>>;
+    ) as unknown as Array<Record<string, unknown>>;
 
     expect(output).toHaveLength(2);
     expect(output).not.toEqual(
