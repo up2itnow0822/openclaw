@@ -7,7 +7,7 @@
   "dependencies": {
     "@earendil-works/pi-ai": "0.79.10",
     "typebox": "1.1.33",
-    "ws": "^8.20.0"
+    "ws": "^8.21.3"
   },
   "devDependencies": {
     "@openclaw/plugin-sdk": "workspace:*"
