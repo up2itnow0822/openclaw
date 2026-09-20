@@ -57,7 +57,7 @@ function formatLocalSetupError(err: unknown): string {
         : undefined,
     missing && detail ? `Detail: ${detail}` : null,
     "To enable local embeddings:",
-    "1) Use Node 24 (recommended for installs/updates; Node 22 LTS, currently 22.14+, remains supported)",
+    "1) Use Node 24 or later",
     missing
       ? `2) Install optional local embedding runtime next to OpenClaw: npm i -g ${NODE_LLAMA_CPP_INSTALL_SPEC}`
       : null,

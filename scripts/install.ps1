@@ -145,21 +145,38 @@ function Install-Node {
     }
     
     Write-Host "Could not install Node.js automatically" -Level error
-    Write-Host "Please install Node.js 22+ manually from: https://nodejs.org" -Level info
+    Write-Host "Please install Node.js 24+ manually from: https://nodejs.org" -Level info
+    return $false
+}
+
+function Test-SupportedNode {
+    $nodeVersion = Get-NodeVersion
+    if (-not $nodeVersion) {
+        return $false
+    }
+    $major = [int]($nodeVersion -split '\.')[0]
+    if ($major -ge 24) {
+        Write-Host "Node.js v$nodeVersion found" -Level success
+        return $true
+    }
+    Write-Host "Node.js v$nodeVersion found, but need v24+" -Level warn
     return $false
 }
 
 function Ensure-Node {
-    $nodeVersion = Get-NodeVersion
-    if ($nodeVersion) {
-        $major = [int]($nodeVersion -split '\.')[0]
-        if ($major -ge 22) {
-            Write-Host "Node.js v$nodeVersion found" -Level success
-            return $true
-        }
-        Write-Host "Node.js v$nodeVersion found, but need v22+" -Level warn
+    if (Test-SupportedNode) {
+        return $true
     }
-    return Install-Node
+    if (-not (Install-Node)) {
+        return $false
+    }
+    $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+    if (Test-SupportedNode) {
+        return $true
+    }
+    Write-Host "Active Node.js is still below v24+ after installation" -Level error
+    Write-Host "Please install Node.js 24+ manually from: https://nodejs.org" -Level info
+    return $false
 }
 
 function Get-GitVersion {

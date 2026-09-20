@@ -60,6 +60,14 @@ describe("install.ps1 failure handling", () => {
   const powershell = findPowerShell();
   const runIfPowerShell = powershell ? it : it.skip;
 
+  it("revalidates the active Node major after a Windows upgrade attempt", () => {
+    const ensureNodeBody = extractFunctionBody(source, "Ensure-Node");
+    expect(ensureNodeBody).toContain("Test-SupportedNode");
+    expect(ensureNodeBody).toContain("Install-Node");
+    expect(ensureNodeBody).toContain("still below v24+ after installation");
+    expect(extractFunctionBody(source, "Test-SupportedNode")).toContain("$major -ge 24");
+  });
+
   it("does not exit directly from inside Main", () => {
     const mainBody = extractFunctionBody(source, "Main");
     expect(mainBody).not.toMatch(/\bexit\b/i);

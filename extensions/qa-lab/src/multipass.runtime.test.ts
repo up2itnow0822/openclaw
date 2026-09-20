@@ -101,6 +101,8 @@ describe("qa multipass runtime", () => {
 
     expect(script).toContain("pnpm install --frozen-lockfile");
     expect(script).toContain("pnpm build");
+    expect(script).toContain('if [ "${node_major}" -ge 24 ]; then');
+    expect(script).toContain('base_url="https://nodejs.org/dist/latest-v24.x"');
     expect(script).toContain(`corepack prepare '${readRootPackageManager()}' --activate`);
     expect(script).toContain("'pnpm' 'openclaw' 'qa' 'suite' '--transport' 'qa-channel'");
     expect(script).toContain("'--provider-mode' 'live-frontier'");

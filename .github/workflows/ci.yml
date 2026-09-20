@@ -1110,7 +1110,7 @@ jobs:
   checks-node-compat:
     permissions:
       contents: read
-    name: checks-node-compat-node22
+    name: checks-node-compat-node24
     needs: [preflight]
     if: needs.preflight.outputs.run_build_artifacts == 'true' && github.event_name == 'workflow_dispatch'
     runs-on: ${{ github.repository == 'openclaw/openclaw' && 'blacksmith-4vcpu-ubuntu-2404' || 'ubuntu-24.04' }}
@@ -1167,14 +1167,14 @@ jobs:
       - name: Setup Node environment
         uses: ./.github/actions/setup-node-env
         with:
-          node-version: "22.18.0"
-          cache-key-suffix: "node22"
+          node-version: "24.x"
+          cache-key-suffix: "node24"
           install-bun: "false"
 
       - name: Configure Node test resources
         run: echo "OPENCLAW_VITEST_MAX_WORKERS=2" >> "$GITHUB_ENV"
 
-      - name: Run Node 22 compatibility
+      - name: Run Node 24 compatibility
         env:
           NODE_OPTIONS: --max-old-space-size=6144
         run: |

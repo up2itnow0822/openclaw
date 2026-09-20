@@ -170,7 +170,7 @@ and troubleshooting see the main [FAQ](/help/faq).
   <Accordion title="Any tips for Raspberry Pi installs?">
     Short version: it works, but expect rough edges.
 
-    - Use a **64-bit** OS and keep Node >= 22.
+    - Use a **64-bit** OS and keep Node >= 24.
     - Prefer the **hackable (git) install** so you can see logs and update fast.
     - Start without channels/skills, then add them one by one.
     - If you hit weird binary issues, it is usually an **ARM compatibility** problem.

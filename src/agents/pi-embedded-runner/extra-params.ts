@@ -1,7 +1,7 @@
-import type { StreamFn } from "@mariozechner/pi-agent-core";
-import type { SimpleStreamOptions } from "@mariozechner/pi-ai";
-import { streamSimple } from "@mariozechner/pi-ai";
-import type { SettingsManager } from "@mariozechner/pi-coding-agent";
+import type { StreamFn } from "@earendil-works/pi-agent-core";
+import type { SimpleStreamOptions } from "@earendil-works/pi-ai";
+import { streamSimple } from "@earendil-works/pi-ai";
+import type { SettingsManager } from "@earendil-works/pi-coding-agent";
 import type { ThinkLevel } from "../../auto-reply/thinking.js";
 import type { OpenClawConfig } from "../../config/types.openclaw.js";
 import {
@@ -120,7 +120,9 @@ type CacheRetentionStreamOptions = Partial<SimpleStreamOptions> & {
   cachedContent?: string;
   openaiWsWarmup?: boolean;
 };
-export type SupportedTransport = Exclude<CacheRetentionStreamOptions["transport"], undefined>;
+// OpenClaw keeps the 0.70-era closed transport set. Pi 0.79 also emits
+// "websocket-cached"; drop it until a product path maps that mode.
+export type SupportedTransport = "sse" | "websocket" | "auto";
 
 function resolveSupportedTransport(value: unknown): SupportedTransport | undefined {
   return value === "sse" || value === "websocket" || value === "auto" ? value : undefined;

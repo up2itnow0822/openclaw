@@ -1,5 +1,5 @@
-import type { AssistantMessage, Usage } from "@mariozechner/pi-ai";
-import { SessionManager } from "@mariozechner/pi-coding-agent";
+import type { AssistantMessage, Usage } from "@earendil-works/pi-ai";
+import { SessionManager } from "@earendil-works/pi-coding-agent";
 import {
   classifyAgentHarnessTerminalOutcome,
   embeddedAgentLog,

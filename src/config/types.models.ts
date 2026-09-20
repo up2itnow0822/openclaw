@@ -2,7 +2,7 @@ import type {
   AnthropicMessagesCompat,
   OpenAICompletionsCompat,
   OpenAIResponsesCompat,
-} from "@mariozechner/pi-ai";
+} from "@earendil-works/pi-ai";
 import type { ConfiguredModelProviderRequest } from "./types.provider-request.js";
 import type { SecretInput } from "./types.secrets.js";
 
@@ -50,7 +50,10 @@ type SupportedAnthropicMessagesCompatFields = Pick<
 >;
 
 type SupportedThinkingFormat =
-  | Exclude<NonNullable<OpenAICompletionsCompat["thinkingFormat"]>, "qwen" | "qwen-chat-template">
+  | Exclude<
+      NonNullable<OpenAICompletionsCompat["thinkingFormat"]>,
+      "qwen" | "qwen-chat-template" | "together" | "chat-template" | "string-thinking" | "ant-ling"
+    >
   | "deepseek"
   | "openrouter";
 

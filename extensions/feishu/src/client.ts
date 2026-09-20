@@ -82,8 +82,10 @@ export const FEISHU_HTTP_TIMEOUT_MS = 30_000;
 export const FEISHU_HTTP_TIMEOUT_MAX_MS = 300_000;
 export const FEISHU_HTTP_TIMEOUT_ENV_VAR = "OPENCLAW_FEISHU_HTTP_TIMEOUT_MS";
 
+// axios 1.20 types defaultHttpInstance as AxiosInstance (Promise<AxiosResponseResult<...>>).
+// Lark.HttpInstance still uses Promise<R>, so adapt at this wrapper boundary.
 type FeishuHttpInstanceLike = Pick<
-  typeof feishuClientSdk.defaultHttpInstance,
+  Lark.HttpInstance,
   "request" | "get" | "post" | "put" | "patch" | "delete" | "head" | "options"
 >;
 
@@ -116,7 +118,7 @@ function resolveDomain(domain: FeishuDomain | undefined): Lark.Domain | string {
  * indefinite hangs and set a standardized User-Agent per OAPI best practices.
  */
 function createTimeoutHttpInstance(defaultTimeoutMs: number): Lark.HttpInstance {
-  const base: FeishuHttpInstanceLike = feishuClientSdk.defaultHttpInstance;
+  const base = feishuClientSdk.defaultHttpInstance as FeishuHttpInstanceLike;
 
   function injectTimeout<D>(opts?: Lark.HttpRequestOptions<D>): Lark.HttpRequestOptions<D> {
     return { timeout: defaultTimeoutMs, ...opts } as Lark.HttpRequestOptions<D>;

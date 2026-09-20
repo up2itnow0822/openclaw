@@ -17,8 +17,8 @@ NC='\033[0m' # No Color
 
 DEFAULT_TAGLINE="All your chats, one OpenClaw."
 NODE_DEFAULT_MAJOR=24
-NODE_MIN_MAJOR=22
-NODE_MIN_MINOR=14
+NODE_MIN_MAJOR=24
+NODE_MIN_MINOR=0
 NODE_MIN_VERSION="${NODE_MIN_MAJOR}.${NODE_MIN_MINOR}"
 
 ORIGINAL_PATH="${PATH:-}"
@@ -1357,7 +1357,7 @@ ensure_macos_default_node_active() {
 
     local major=""
     major="$(node_major_version || true)"
-    if [[ -n "$major" && "$major" -ge 22 ]]; then
+    if [[ -n "$major" && "$major" -ge "$NODE_MIN_MAJOR" ]]; then
         return 0
     fi
 

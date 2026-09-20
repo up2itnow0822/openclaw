@@ -1,4 +1,4 @@
-import type { Express, Request } from "express";
+import type { Express, Request, Response } from "express";
 import express from "express";
 import { browserMutationGuardMiddleware } from "./csrf.js";
 import { isAuthorizedBrowserRequest } from "./http-auth.js";
@@ -17,18 +17,48 @@ function markVerifiedBrowserAuth(req: Request) {
   (req as BrowserAuthMarkedRequest)[BROWSER_AUTH_VERIFIED_FLAG] = true;
 }
 
+function readRequestSignal(req: Request): AbortSignal | undefined {
+  const signal = (req as unknown as { signal?: AbortSignal }).signal;
+  return signal instanceof AbortSignal ? signal : undefined;
+}
+
+function canAssignRequestSignal(req: Request): boolean {
+  const descriptor =
+    Object.getOwnPropertyDescriptor(req, "signal") ??
+    Object.getOwnPropertyDescriptor(Object.getPrototypeOf(req), "signal");
+  if (!descriptor) {
+    return true;
+  }
+  if (descriptor.writable === true) {
+    return true;
+  }
+  return typeof descriptor.set === "function";
+}
+
+function attachRequestAbortSignal(req: Request, res: Response): void {
+  if (readRequestSignal(req) || !canAssignRequestSignal(req)) {
+    return;
+  }
+  const ctrl = new AbortController();
+  const abort = () => {
+    if (!ctrl.signal.aborted) {
+      ctrl.abort(new Error("request aborted"));
+    }
+  };
+  req.once("aborted", abort);
+  res.once("close", () => {
+    if (!res.writableEnded) {
+      abort();
+    }
+  });
+  (req as unknown as { signal?: AbortSignal }).signal = ctrl.signal;
+}
+
 export function installBrowserCommonMiddleware(app: Express) {
   app.use((req, res, next) => {
-    const ctrl = new AbortController();
-    const abort = () => ctrl.abort(new Error("request aborted"));
-    req.once("aborted", abort);
-    res.once("close", () => {
-      if (!res.writableEnded) {
-        abort();
-      }
-    });
-    // Make the signal available to browser route handlers (best-effort).
-    (req as unknown as { signal?: AbortSignal }).signal = ctrl.signal;
+    // Node 24+ exposes a read-only IncomingMessage.signal getter. Reuse it
+    // and only polyfill on runtimes where the property is still writable.
+    attachRequestAbortSignal(req, res);
     next();
   });
   app.use(express.json({ limit: "1mb" }));

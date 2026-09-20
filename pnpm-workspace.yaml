@@ -20,6 +20,7 @@ minimumReleaseAgeExclude:
   - "@cloudflare/workers-types"
   - "@hono/node-server"
   - "@mariozechner/*"
+  - "@earendil-works/*"
   - "@openai/codex"
   - "@openai/codex-*"
   - "@typescript/native-preview*"

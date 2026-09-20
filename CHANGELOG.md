@@ -6,6 +6,7 @@ Docs: https://docs.openclaw.ai
 
 ### Changes
 
+- Runtime/install: raise the supported Node floor to `>=24.0.0` (engines, CLI/runtime guards, installer, macOS locator, and CI pins), so Node 22 is no longer a supported compatibility path. Thanks @up2itnow0822.
 - Channels: add Yuanbao channel docs entrance so the Tencent Yuanbao bot appears in the channel listing and sidebar navigation. (#73443) Thanks @loongfay.
 - Active Memory: add optional per-conversation `allowedChatIds` and `deniedChatIds` filters so operators can enable recall only for selected direct, group, or channel conversations while keeping broad sessions skipped. (#67977) Thanks @quengh.
 - Active Memory: return bounded partial recall summaries when the hidden memory sub-agent times out, including the default temporary-transcript path, so useful recovered context is not discarded. (#73219) Thanks @joeykrug.
@@ -14,6 +15,10 @@ Docs: https://docs.openclaw.ai
 
 ### Fixes
 
+- Security/dependencies: migrate the embedded Pi SDK from vulnerable `@mariozechner/pi-coding-agent` `0.70.5` (GHSA-jfgx-wxx8-mp94, unpatched through `0.73.1`) to the patched successor `@earendil-works/pi-{agent-core,ai,coding-agent,tui}` `0.79.10`, so production HIGH+ audit can pass without disabling the gate. Thanks @up2itnow0822.
+- Security/dependencies: bump production HIGH/CRITICAL lockfile pins (axios, tar, baileys, hono, otel, pdfjs-dist, sharp, undici, ws, and related overrides) and ship a symlink-safe extract-zip under `patches/extract-zip` so `pnpm-audit-prod --audit-level=high` can pass patched releases. Thanks @up2itnow0822.
+- Models/OpenCode Go: align bundled Go catalog coverage and provider docs with `@earendil-works/pi-ai` `0.79.10` (`glm-5.2`, `kimi-k2.7-code`, `minimax-m3`, `qwen3.7-*`). Thanks @up2itnow0822.
+- Browser control: keep Node 24's native read-only `IncomingMessage.signal` instead of overwriting it, so control/bridge HTTP routes return real auth and validation statuses instead of Express 500 HTML. Thanks @up2itnow0822.
 - Channels/Discord: remove Discord-owned queued-run timeout replies through the shared channel lifecycle queue while preserving message ordering and compatibility timeout constants, so long Discord turns stay governed by session/tool/runtime lifecycle instead of channel fallback errors. Thanks @codexGW.
 - Agents/tools: clamp `process.poll` waits to 30 seconds and honor abort signals while waiting, so long command polls cannot pin agent responsiveness after cancellation. Thanks @vincentkoc.
 - Plugin SDK: add tracked Discord component-message helpers and a Telegram account-resolution compatibility facade, so existing plugins using those subpaths resolve while new plugins stay on generic channel SDK contracts. Thanks @vincentkoc.

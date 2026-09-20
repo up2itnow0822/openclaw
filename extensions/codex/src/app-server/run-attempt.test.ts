@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { SessionManager } from "@mariozechner/pi-coding-agent";
+import { SessionManager } from "@earendil-works/pi-coding-agent";
 import {
   abortAgentHarnessRun,
   queueAgentHarnessMessage,
@@ -171,7 +171,8 @@ function createAppServerHarness(
     requests,
     async waitForMethod(method: string) {
       await vi.waitFor(() => expect(requests.some((entry) => entry.method === method)).toBe(true), {
-        interval: 1,
+        interval: 10,
+        timeout: 10_000,
       });
     },
     async notify(notification: CodexServerNotification) {
@@ -305,6 +306,7 @@ function extractRelayIdFromThreadRequest(params: unknown): string {
 describe("runCodexAppServerAttempt", () => {
   beforeEach(async () => {
     resetAgentEventsForTest();
+    resetGlobalHookRunner();
     tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-codex-run-"));
   });
 

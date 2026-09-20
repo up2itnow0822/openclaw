@@ -1,4 +1,4 @@
-import { getModels } from "@mariozechner/pi-ai";
+import { getModels } from "@earendil-works/pi-ai";
 import {
   registerProviderPlugin,
   registerSingleProviderPlugin,
@@ -53,18 +53,17 @@ describe("opencode-go provider plugin", () => {
     expect([...models.keys()]).toEqual([
       "deepseek-v4-flash",
       "deepseek-v4-pro",
-      "glm-5",
       "glm-5.1",
-      "kimi-k2.5",
+      "glm-5.2",
       "kimi-k2.6",
-      "mimo-v2-omni",
-      "mimo-v2-pro",
+      "kimi-k2.7-code",
       "mimo-v2.5",
       "mimo-v2.5-pro",
-      "minimax-m2.5",
       "minimax-m2.7",
-      "qwen3.5-plus",
+      "minimax-m3",
       "qwen3.6-plus",
+      "qwen3.7-max",
+      "qwen3.7-plus",
     ]);
     const supplemental = await provider.augmentModelCatalog?.({
       entries: [...models.values()].map((model) => ({
@@ -97,13 +96,21 @@ describe("opencode-go provider plugin", () => {
       maxTokens: 65_536,
     });
     expect(models.get("minimax-m2.7")).toMatchObject({
-      api: "anthropic-messages",
-      baseUrl: "https://opencode.ai/zen/go",
+      api: "openai-completions",
+      baseUrl: "https://opencode.ai/zen/go/v1",
       reasoning: true,
       contextWindow: 204_800,
       maxTokens: 131_072,
     });
-    expect(models.get("mimo-v2-pro")).toMatchObject({
+    expect(models.get("minimax-m3")).toMatchObject({
+      api: "anthropic-messages",
+      baseUrl: "https://opencode.ai/zen/go",
+      input: ["text", "image"],
+      reasoning: true,
+      contextWindow: 512_000,
+      maxTokens: 131_072,
+    });
+    expect(models.get("mimo-v2.5-pro")).toMatchObject({
       api: "openai-completions",
       baseUrl: "https://opencode.ai/zen/go/v1",
       input: ["text"],
@@ -111,10 +118,10 @@ describe("opencode-go provider plugin", () => {
       contextWindow: 1_048_576,
       maxTokens: 128_000,
     });
-    expect(models.get("mimo-v2-omni")).toMatchObject({
+    expect(models.get("mimo-v2.5")).toMatchObject({
       input: ["text", "image"],
       reasoning: true,
-      contextWindow: 262_144,
+      contextWindow: 1_000_000,
       maxTokens: 128_000,
     });
     expect(

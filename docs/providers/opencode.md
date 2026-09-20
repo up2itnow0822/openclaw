@@ -102,7 +102,7 @@ as one OpenCode setup.
 | Property         | Value                                                                    |
 | ---------------- | ------------------------------------------------------------------------ |
 | Runtime provider | `opencode-go`                                                            |
-| Example models   | `opencode-go/kimi-k2.6`, `opencode-go/glm-5`, `opencode-go/minimax-m2.5` |
+| Example models   | `opencode-go/kimi-k2.6`, `opencode-go/glm-5.2`, `opencode-go/minimax-m3` |
 
 ## Advanced configuration
 

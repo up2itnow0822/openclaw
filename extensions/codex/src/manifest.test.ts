@@ -17,7 +17,7 @@ describe("codex package manifest", () => {
       fs.readFileSync(new URL("../package.json", import.meta.url), "utf8"),
     ) as CodexPackageManifest;
 
-    expect(packageJson.dependencies?.["@mariozechner/pi-coding-agent"]).toBeDefined();
+    expect(packageJson.dependencies?.["@earendil-works/pi-coding-agent"]).toBeDefined();
     expect(packageJson.dependencies?.["@openai/codex"]).toBe(
       MANAGED_CODEX_APP_SERVER_PACKAGE_VERSION,
     );
